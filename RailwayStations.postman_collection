@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "863e2537-af5b-4552-a780-ba17599ec2e6",
+		"name": "RailwayStations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30209566"
+	},
+	"item": [
+		{
+			"name": "stations/loadFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/stations/loadFile/railwaystations2.txt",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stations",
+						"loadFile",
+						"railwaystations2.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stations/get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/stations/get",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stations",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stations/add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"station_name\":\"KSR Bangalore\",\r\n    \"station_code\":\"SBC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/stations/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stations",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
