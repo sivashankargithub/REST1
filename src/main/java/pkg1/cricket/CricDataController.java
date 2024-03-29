@@ -14,15 +14,20 @@ public class CricDataController {
 	@GetMapping("/cric/all/bestbatsman/{fname}")
 	public static String findBestBatsman(@PathVariable String fname) throws IOException{
 		ArrayList<String>players=new ArrayList<>();//11 players
-		ArrayList<Integer>total=new ArrayList<>();//11 entries one for each player
 		ArrayList<String>batsman=new ArrayList<>();//125 times batsman has faced the ball
+		ArrayList<String>bowlers=new ArrayList<>();//125 times bowler bowled the ball
+		ArrayList<String>wickets=new ArrayList<>();//125 times has the opportunity to get wickets
 		ArrayList<Integer>scores=new ArrayList<>();// runs scored each of the 125 balls
+		ArrayList<Integer>total=new ArrayList<>();
+		ArrayList<Integer>total_wick=new ArrayList<>();
 		String[] arr1;
 		String name1="";
 		String bestbatsman="";
 		String date1="";
 		int total1=0;
+		int total2=0;
 		int maxtotal=0;
+		int len1=0;
 		File f1=new File(fname);
 		Scanner sc1=new Scanner(f1);
 		for(int i=0;i<6;i++) {// Skipping the unwanted lines in the file
@@ -45,8 +50,17 @@ public class CricDataController {
 		}
 		while(sc1.hasNext()) {//Reading remaining lines 
 			arr1=sc1.nextLine().split(",");
+			len1=arr1.length;
 			batsman.add(arr1[4]);
+			bowlers.add(arr1[6]);
 			scores.add(Integer.parseInt(arr1[7]));
+			if(len1==16) {
+				wickets.add(arr1[14]);
+			}
+			else {
+				wickets.add("");
+			}
+			
 		}
 		
 		for(int j=0;j<players.size();j++) {
@@ -68,8 +82,26 @@ public class CricDataController {
 		}
 		System.out.println("Best batsman is  "+bestbatsman+" : "+maxtotal);
 		
-		String msg=date1+" Best batsman is  "+bestbatsman+" : "+maxtotal;
-		return msg;
+		String msg1=date1+" Best batsman is  "+bestbatsman+" : "+maxtotal;
+		
+		for(int j=0;j<players.size();j++) {
+			total2=0;
+			for(int i=0;i<bowlers.size();i++) {
+				if(players.get(j).equals(bowlers.get(i))) {
+					if(wickets.get(i)=="") {
+					}
+					else {
+						total2=total2+1;
+						total_wick.add(total2);
+					}
+				}
+			}
+		}
+		System.out.println(total_wick);
+		
+		
+		
+		return msg1;
 	}
 	
 	@GetMapping("/cric/all/bestbatsmen/{fnames}")
@@ -86,5 +118,9 @@ public class CricDataController {
 		
 		sc2.close();
 		return msg2;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		findBestBatsman("1273727.csv");
 	}
 }
